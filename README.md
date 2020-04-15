@@ -6,7 +6,7 @@ Using data from the API: [https://covid19.th-stat.com/api/open/timeline](https:/
 # Screenshot
 ![Screenshot](https://github.com/KarnYong/nodejs-jwt-mongodb/raw/master/screenshot.png)
 
-# Steps to start the API
+# Steps to start this react app
 * Git clone this repository.
 ```bash
 git clone https://github.com/KarnYong/react-material-ui-dashboard-covid-19
