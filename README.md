@@ -1,3 +1,6 @@
+# Sample app
+http://karnyong.github.io/
+
 # react-material-ui-dashboard-covid-19
 React app using meterial-ui and recharts for simple dashboard of COVID-19.
 
