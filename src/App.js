@@ -8,21 +8,9 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import {
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  BarChart, 
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import { ResponsiveContainer, XAxis, YAxis, CartesianGrid, 
+  Tooltip, Legend, LineChart, Line, BarChart, Bar, PieChart, 
+  Pie, Cell, } from 'recharts';
 
 const styles = theme => ({
   appBarSpacer: theme.mixins.toolbar,
@@ -49,63 +37,55 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  //classes = useStyles;
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
       dataTimeline: [],
       dataTimeline15: [],
-      dataTimeline20: [],
       data_text: {
-        updatedDate: "",
-        confirmed: "",
-        hospitalized: "",
-        deaths: "",
-        recovered: "",
-        newConfirmed: "",
-        newHospitalized: "",
-        newDeaths: "",
-        newRecovered: "",
+        updatedDate: '',
+        confirmed: '',
+        hospitalized: '',
+        deaths: '',
+        recovered: '',
+        newConfirmed: '',
+        newHospitalized: '',
+        newDeaths: '',
+        newRecovered: '',
       },
       data_pie: [{}],
     };
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading : false,
-    });
     this.callAPI();
   }
 
   callAPI() {
-    this.setState({ isLoading: true });
-    axios.get("https://covid19.th-stat.com/api/open/timeline")
+    axios.get('https://covid19.th-stat.com/api/open/timeline')
     .then(response => {
         console.log(response.data);
-        const data = response.data["Data"];
+        const data = response.data['Data'];
         const lastData = data.slice(-1)[0];
         this.setState({
           dataTimeline: data,
           dataTimeline15: data.slice(1).slice(-15),
-          dataTimeline20: data.slice(1).slice(-20),
           data_text: {
-            source: response.data["Source"],
-            updatedDate: lastData["Date"],
-            confirmed: lastData["Confirmed"],
-            hospitalized: lastData["Hospitalized"],
-            deaths: lastData["Deaths"],
-            recovered: lastData["Recovered"],
-            newConfirmed: lastData["NewConfirmed"],
-            newHospitalized: lastData["NewHospitalized"],
-            newDeaths: lastData["NewDeaths"],
-            newRecovered: lastData["NewRecovered"],
+            source: response.data['Source'],
+            updatedDate: lastData['Date'],
+            confirmed: lastData['Confirmed'],
+            hospitalized: lastData['Hospitalized'],
+            deaths: lastData['Deaths'],
+            recovered: lastData['Recovered'],
+            newConfirmed: lastData['NewConfirmed'],
+            newHospitalized: lastData['NewHospitalized'],
+            newDeaths: lastData['NewDeaths'],
+            newRecovered: lastData['NewRecovered'],
           },
           data_pie: [
-            { name: "hospitalized", value: lastData["Hospitalized"] },
-            { name: "deaths", value: lastData["Deaths"] },
-            { name: "recovered", value: lastData["Recovered"] },
+            { name: 'hospitalized', value: lastData['Hospitalized'] },
+            { name: 'deaths', value: lastData['Deaths'] },
+            { name: 'recovered', value: lastData['Recovered'] },
           ]
         });
         
@@ -113,14 +93,11 @@ class App extends React.Component {
     .catch(function (error) {
         console.log(error);
     })
-    .finally(() => {
-        this.setState({ isLoading: false });
-    });
   }
-
+  
   render() {
     const { classes } = this.props;
-    console.log(classes);
+    const { dataTimeline, dataTimeline15, data_text, data_pie } = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -136,38 +113,38 @@ class App extends React.Component {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography align="right">
-                Last updated: {this.state.data_text.updatedDate}
+                Last updated: {data_text.updatedDate}
               </Typography>
               <Typography variant="subtitle2" align="right">
-                <a href={this.state.data_text.source} target="_blank" rel="noopener noreferrer">{this.state.data_text.source}</a>
+                <a href={data_text.source} target="_blank" rel="noopener noreferrer">{data_text.source}</a>
               </Typography>
             </Grid>
             <Grid item xs={6} sm={3}>
               <Paper className={classes.paper}>
                 <Typography>Confirmed</Typography>
-                <Typography variant="h3">{this.state.data_text.confirmed.toLocaleString()}</Typography>
-                <Typography variant="h5">({this.state.data_text.newConfirmed.toLocaleString()})</Typography>
+                <Typography variant="h3">{data_text.confirmed.toLocaleString()}</Typography>
+                <Typography variant="h5">({data_text.newConfirmed.toLocaleString()})</Typography>
               </Paper>
             </Grid>
             <Grid item xs={6} sm={3}>
               <Paper className={classes.paper}>
                 <Typography>Hospitalized</Typography>
-                <Typography variant="h3">{this.state.data_text.hospitalized.toLocaleString()}</Typography>
-                <Typography variant="h5">({this.state.data_text.newHospitalized.toLocaleString()})</Typography>
+                <Typography variant="h3">{data_text.hospitalized.toLocaleString()}</Typography>
+                <Typography variant="h5">({data_text.newHospitalized.toLocaleString()})</Typography>
               </Paper>
             </Grid>
             <Grid item xs={6} sm={3}>
               <Paper className={classes.paper}>
                 <Typography>Deaths</Typography>
-                <Typography variant="h3">{this.state.data_text.deaths.toLocaleString()}</Typography>
-                <Typography variant="h5">({this.state.data_text.newDeaths.toLocaleString()})</Typography>
+                <Typography variant="h3">{data_text.deaths.toLocaleString()}</Typography>
+                <Typography variant="h5">({data_text.newDeaths.toLocaleString()})</Typography>
               </Paper>
             </Grid>
             <Grid item xs={6} sm={3}>
               <Paper className={classes.paper}>
                 <Typography>Recovered</Typography>
-                <Typography variant="h3">{this.state.data_text.recovered.toLocaleString()}</Typography>
-                <Typography variant="h5">({this.state.data_text.newRecovered.toLocaleString()})</Typography>
+                <Typography variant="h3">{data_text.recovered.toLocaleString()}</Typography>
+                <Typography variant="h5">({data_text.newRecovered.toLocaleString()})</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -176,7 +153,7 @@ class App extends React.Component {
                 <BarChart 
                     width={500} 
                     height={300} 
-                    data={this.state.dataTimeline15}
+                    data={dataTimeline15}
                     margin={{top: 5, right: 5, left: 0, bottom: 5}}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
@@ -195,7 +172,7 @@ class App extends React.Component {
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart width={400} height={400}>
                     <Legend />
-                    <Pie dataKey="value" isAnimationActive={false} data={this.state.data_pie} outerRadius={100} label>
+                    <Pie dataKey="value" isAnimationActive={false} data={data_pie} outerRadius={100} label>
                       <Cell fill="#8884d8" />
                       <Cell fill="#FF9AA2" />
                       <Cell fill="#8FC1A9" />
@@ -209,7 +186,7 @@ class App extends React.Component {
               <Paper className={classes.paper}>
                 <ResponsiveContainer width="100%" height={500}>
                   <LineChart
-                    data={this.state.dataTimeline}
+                    data={dataTimeline}
                     margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
