@@ -62,7 +62,7 @@ class App extends React.Component {
   }
 
   callAPI() {
-    axios.get('https://covid19.th-stat.com/api/open/timeline')
+    axios.get('https://covid19.th-stat.com/json/covid19v2/getTimeline.json')
     .then(response => {
         console.log(response.data);
         const data = response.data['Data'];
